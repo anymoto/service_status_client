@@ -3,6 +3,5 @@ require 'service_status_client/version'
 require 'service_status_client/base'
 require 'service_status_client/client'
 require 'service_status_client/status_message'
-
-module ServiceStatusClient
-end
+require 'service_status_client/exceptions/resource_not_found_exception'
+require 'service_status_client/exceptions/unprocessable_entity_exception'
