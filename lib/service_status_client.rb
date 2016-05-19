@@ -37,5 +37,8 @@ module ServiceStatusClient
   end
 
   class StatusMessage < Base
+    def self.current
+      self.get(:current)
+    end
   end
 end
