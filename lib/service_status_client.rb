@@ -1,4 +1,5 @@
 require "service_status_client/version"
+require 'active_resource'
 
 module ServiceStatusClient
   class << self
@@ -12,15 +13,18 @@ module ServiceStatusClient
       self.token = auth_token
     end
 
+    def resources
+      @resources ||= []
+    end
+
+    private
+
     def token=(value)
       resources.each do |klass|
         klass.headers['Authorization'] = "Token token=#{ value }"
       end
     end
 
-    def resources
-      @resources ||= []
-    end
   end
 
   class Base < ActiveResource::Base
