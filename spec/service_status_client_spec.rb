@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 describe ServiceStatusClient do
-  it 'has a version number' do
-    expect(ServiceStatusClient::VERSION).not_to be nil
-  end
+  #before do
+    #headers = { 'Authorization' => 'Token token=XYZ' }
+    #status_message = { 'status_message' => { 'status' => 'UP', 'message' => 'Everything is ok' }
 
-  it 'does something useful' do
-    expect(false).to eq(true)
-  end
+    #ActiveResource::HttpMock.respond_to do |mock|
+      #mock.post 'status_messages', headers, status_message, 201
+      #mock.get 'status_messages/current', {}, 200
+    #end
+  #end
 end
