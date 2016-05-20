@@ -40,15 +40,15 @@ module ServiceStatusClient
     describe '#current_status' do
       context 'When current status exists' do
         before do
-          @current_status = '{"id"=>4, "status"=>"UP", "message"=>"Everything is fine", "created_at"=>"2016-05-19T21:27:01.753Z", "updated_at"=>"2016-05-19T21:27:01.753Z"}'
-          stub_request(:get, 'http://servicestatus.com/api/v1/status_messages/current').to_return(:body => @current_status, :status => 201, :headers => {})
+          client = ServiceStatusClient::Client.new(auth_token: 'XYZ')
+          @current_status = client.current_status
+          stub_request(:get, 'http://servicestatus.com/api/v1/status_messages/current').to_return(:body => @current_status.to_s, :status => 201, :headers => {})
         end
 
         it 'returns the service current status' do
           client = ServiceStatusClient::Client.new(auth_token: 'XYZ')
-          response = client.current_status
-
-          expect(@current_status).to eq response
+          status = client.current_status
+          expect(@current_status).to eq status
         end
       end
 
@@ -58,6 +58,10 @@ module ServiceStatusClient
           expect{ ServiceStatusClient::Client}
         end
       end
+    end
+
+    describe '#create_status' do
+      pending
     end
   end
 end
