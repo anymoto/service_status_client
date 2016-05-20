@@ -1,8 +1,10 @@
 # ServiceStatusClient
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/service_status_client`. To experiment with that code, run `bin/console` for an interactive prompt.
+A library to consume the [Service Status API](https://github.com/anymoto/service_status).
 
-TODO: Delete this and the text above, and describe your gem
+With this gem you will be able to:
+- [x] Get the service current status
+- [x] Update the service status
 
 ## Installation
 
@@ -22,7 +24,33 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+* First, require the gem:
+
+```ruby
+require 'service_status_client'
+```
+
+* Then, initialize the client:
+```ruby
+client = ServiceStatusClient::Client.new(url: API_URL, auth_token: USER_TOKEN)
+```
+
+If url is not present, the default url will be:
+```
+http://localhost:3000/api/v1
+```
+
+But, you always must provide your authorization token.
+
+* To get the current status:
+```ruby
+client.current_status
+```
+
+* To update the service status:
+```ruby
+client.create_status(status: 'UP', message: 'Service was restored')
+```
 
 ## Development
 
