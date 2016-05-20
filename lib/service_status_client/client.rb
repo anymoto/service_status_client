@@ -14,19 +14,15 @@ module ServiceStatusClient
     end
 
     def current_status
-      begin
-        ServiceStatusClient::StatusMessage.get(:current)
-      rescue
-        raise ServiceStatusClient::Exceptions::ResourceNotFoundException, 'Resource not found!'
-      end
+      ServiceStatusClient::StatusMessage.get(:current)
+    rescue
+      raise ServiceStatusClient::Exceptions::ResourceNotFoundException, 'Resource not found!'
     end
 
     def create_status(options = {})
-      begin
-        ServiceStatusClient::StatusMessage.create(status: options[:status], message: options[:message])
-      rescue
-        raise ServiceStatusClient::Exceptions::UnprocessableEntityException, 'Unable to create the resource'
-      end
+      ServiceStatusClient::StatusMessage.create(status: options[:status], message: options[:message])
+    rescue
+      raise ServiceStatusClient::Exceptions::UnprocessableEntityException, 'Unable to create the resource'
     end
 
     protected
