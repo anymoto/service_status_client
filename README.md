@@ -20,8 +20,8 @@ And then execute:
 
 Or, clone/download the repository and install it yourself as:
 
-    $ gem build service_status_client.gemspec
-    $ gem install path_to_gem/service_status_client-*VERSION*.gem
+    $ gem build path_to_gem/service_status_client.gemspec
+    $ gem install path_to_gem/service_status_client-VERSION.gem
 
 ## Usage
 
@@ -33,7 +33,7 @@ require 'service_status_client'
 
 * Then, initialize the client:
 ```ruby
-client = ServiceStatusClient::Client.new(url: *API_URL*, auth_token: *USER_TOKEN*)
+client = ServiceStatusClient::Client.new(url: API_URL, auth_token: USER_TOKEN)
 ```
 
 If url is not present, the default url will be:
