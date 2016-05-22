@@ -1,6 +1,6 @@
 # ServiceStatusClient
 
-A library to consume the [Service Status API](https://github.com/anymoto/service_status).
+A library to consume the [Service Status API](https://github.com/anymoto/service_status). Current stable version is *0.1.0*.
 
 With this gem you will be able to:
 - [x] Get the service current status
@@ -11,16 +11,17 @@ With this gem you will be able to:
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'service_status_client'
+gem 'service_status_client', git: 'git://github.com/anymoto/service_status_client.git'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Or, clone/download the repository and install it yourself as:
 
-    $ gem install service_status_client
+    $ gem build service_status_client.gemspec
+    $ gem install path_to_gem/service_status_client-*VERSION*.gem
 
 ## Usage
 
@@ -32,7 +33,7 @@ require 'service_status_client'
 
 * Then, initialize the client:
 ```ruby
-client = ServiceStatusClient::Client.new(url: API_URL, auth_token: USER_TOKEN)
+client = ServiceStatusClient::Client.new(url: *API_URL*, auth_token: *USER_TOKEN*)
 ```
 
 If url is not present, the default url will be:
