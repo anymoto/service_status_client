@@ -41,8 +41,12 @@ module ServiceStatusClient
       context 'When current status exists' do
         before do
           client = ServiceStatusClient::Client.new(auth_token: 'XYZ')
+          status_message = { status_message: { status: 'UP', message: 'Service was restored' } }
+          client.create_status(status_message)
+
           @current_status = client.current_status
-          stub_request(:get, 'http://servicestatus.com/api/v1/status_messages/current').to_return(:body => @current_status.to_s, :status => 201, :headers => {})
+          stub_request(:get, 'http://servicestatus.com/api/v1/status_messages/current').
+            to_return(body: @current_status.to_s, status: 200, headers: {})
         end
 
         it 'returns the service current status' do
@@ -55,13 +59,27 @@ module ServiceStatusClient
       context 'When current status does not exists' do
         it 'raises a ResourceNotFound Exception' do
           client = ServiceStatusClient::Client.new(auth_token: 'XYZ')
-          expect{ ServiceStatusClient::Client}
+          expect{ client.current_status }.to raise_error(ServiceStatusClient::Exceptions::ResourceNotFoundException)
         end
       end
     end
 
     describe '#create_status' do
-      pending
+      before do
+        status_message = { status_message: { status: 'UP', message: 'Service was restored' } }
+        client = ServiceStatusClient::Client.new(auth_token: 'XYZ')
+        @response = client.create_status(status_message)
+
+        stub_request(:post, 'http://servicestatus.com/api/v1').
+          with(body: status_message, headers: { 'Authorization' => 'Token token=ABCD' }).
+          to_return(body: @response, status: 201, headers: {})
+      end
+
+      it 'updates the service status' do
+        client = ServiceStatusClient::Client.new(auth_token: 'XYZ')
+        response = client.create_status(status_message)
+        expect(@response).to eq response
+      end
     end
   end
 end
